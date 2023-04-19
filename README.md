@@ -1,167 +1,142 @@
-# Python - Object-relational mapping
+<center> <h1>HBNB - The Console</h1> </center>
 
-In this project, I learned about how object-relational mapping is used for
-database scripting. I became familiar with using MySQLdb and SQLAlchemy to
-query, create, edit, and delete tables in MySQL.
+This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
 
-## Tests :heavy_check_mark:
+---
 
-* [tests](./tests): Folder of SQL and Python scripts for setting up test tables
-for all files. Provided by ALX.
+<center><h3>Repository Contents by Project Task</h3> </center>
 
-## Tasks :page_with_curl:
+| Tasks | Files | Description |
+| ----- | ----- | ------ |
+| 0: Authors/README File | [AUTHORS](https://github.com/Lordwill1/AirBnB_clone_v2/blob/master/AUTHORS) | Project authors |
+| 1: Pep8 | N/A | All code is pep8 compliant|
+| 2: Unit Testing | [/tests](https://github.com/justinmajetich/AirBnB_clone/tree/dev/tests) | All class-defining modules are unittested |
+| 3. Make BaseModel | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a parent class to be inherited by all model classes|
+| 4. Update BaseModel w/ kwargs | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Add functionality to recreate an instance of a class from a dictionary representation|
+| 5. Create FileStorage class | [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/_ _init_ _.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/__init__.py) [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a class to manage persistent file storage system|
+| 6. Console 0.0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Add basic functionality to console program, allowing it to quit, handle empty lines and ^D |
+| 7. Console 0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Update the console with methods allowing the user to create, destroy, show, and update stored data |
+| 8. Create User class | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) | Dynamically implements a user class |
+| 9. More Classes | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/place.py) [/models/city.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/city.py) [/models/amenity.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/amenity.py) [/models/state.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/state.py) [/models/review.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/review.py) | Dynamically implements more classes |
+| 10. Console 1.0 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) | Update the console and file storage system to work dynamically with all  classes update file storage |
+<br>
+<br>
+<center> <h2>General Use</h2> </center>
 
-* **0. Get all states**
-  * [0-select_states.py](./0-select_states.py): Python script that uses MySQLdb
-  to list all states in the database `hbtn_0e_0_usa`.
-  * Usage: `./0-select_states.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are ordered by ascending `states.id`.
+1. First clone this repository.
 
-* **1. Filter states**
-  * [1-filter_states.py](./1-filter_states.py): Python script that uses MySQLdb
-  to list all states with names starting with `N` in the database `hbtn_0e_0_usa`.
-  * Usage: `./1-filter_states.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are ordered by ascending `states.id`.
+3. Once the repository is cloned locate the "console.py" file and run it as follows:
+```
+/AirBnB_clone$ ./console.py
+```
+4. When this command is run the following prompt should appear:
+```
+(hbnb)
+```
+5. This prompt designates you are in the "HBnB" console. There are a variety of commands available within the console program.
 
-* **2. Filter states by user input**
-  * [2-my_filter_states.py](./2-my_filter_states.py): Python script that uses
-  MySQLdb to display all values matching a given name in the `states` table of
-  the database `hbtn_0e_0_usa`.
-  * Usage: `./2-my_filter_states.py <mysql username> <mysql password>
-  <database name> <state name searched>`.
-  * Results are ordered by ascending `states.id`.
-  * Uses string formatting to construct the SQL query.
+##### Commands
+    * create - Creates an instance based on given class
 
-* **3. SQL Injection...**
-  * [3-my_safe_filter_states.py](./3-my_safe_filter_states.py): Python script
-  that uses MySQLdb to display all values matching a given name in the `states`
-  table of the database `hbtn_0e_0_usa`.
-  * Usage: `./3-my_safe_filter_states.py <mysql username> <mysql password>
-  <database name> <state name searched>`.
-  * Results are ordered by ascending `states.id`.
-  * Safe from SQL injections.
+    * destroy - Destroys an object based on class and UUID
 
-* **4. Cities by states**
-  * [4-cities_by_state.py](./4-cities_by_state.py): Python script that uses
-  MySQLdb to list all cities from the database `hbtn_0e_4_usa`.
-  * Usage: `./4-cities_by_state.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are ordered by ascending `cities.id`.
+    * show - Shows an object based on class and UUID
 
-* **5. All cities by state**
-  * [5-filter_cities.py](./5-filter_cities.py): Python script that uses MySQLdb
-  to list all cities of a given state in the database `hbtn_0e_4_usa`.
-  * Usage: `./5-filter_cities.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are sorted by ascending `cities.id`.
+    * all - Shows all objects the program has access to, or all objects of a given class
 
-* **6. First state model**
-  * [model_state.py](./model_state.py): Python module defining a class `State`
-  that inherits from SQLAlchemy `Base` and links to the MySQL table `states`.
+    * update - Updates existing attributes an object based on class name and UUID
 
-* **7. All states via SQLAlchemy**
-  * [7-model_state_fetch_all.py](./7-model_state_fetch_all.py): Python script
-  that uses SQLAlchemy to list all `State` objects from the database
-  `hbtn_0e_6_usa`.
-  * Usage: `./7-model_state_fetch_all.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are sorted by ascending `states.id`.
+    * quit - Exits the program (EOF will as well)
 
-* **8. First state**
-  * [8-model_state_fetch_first.py](./8-model_state_fetch_first.py): Python script
-  that uses SQLAlchemy to print the first `State` object from the database
-  `hbtn_0e_6_usa`, ordered by `states.id`.
-  * Usage: `./8-model_state_fetch_first.py <mysql username> <mysql password>
-  <database name>`.
-  * If the `states` table is empty, prints `Nothing`.
 
-* **9. Contains `a`**
-  * [9-model_state_filter_a.py](./9-model_state_filter_a.py): Python script
-  that uses SQLAlchemy to list all `State` objects that contain the letter `a`
-  in the database `hbtn_0e_6_usa`.
-  * Usage: `./9-model_state_filter_a.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are ordered by ascending `states.id`.
+##### Alternative Syntax
+Users are able to issue a number of console command using an alternative syntax:
 
-* **10. Get a state**
-  * [10-model_state_my_get.py](./10-model_state_my_get.py): Python script that
-  uses SQLAlchemy to print the `id` of the `State` object with name matching that
-  passed as argument in the database `hbtn_0e_6_usa`.
-  * Usage: `./10-model_state_my_get.py <mysql username> <mysql password>
-  <database name> <state searched name>`.
-  * Displays the `id` of the matched `State`.
-  * If no match is found, prints `Not found`.
+	Usage: <class_name>.<command>([<id>[name_arg value_arg]|[kwargs]])
+Advanced syntax is implemented for the following commands: 
 
-* **11. Add a new state**
-  * [11-model_state_insert.py](./11-model_state_insert.py): Python script that
-  uses SQLAlchemy to add the `State` object "Louisiana" to the database
-`hbtn_0e_6_usa`.
-  * Usage: `./11-model_state_insert.py <mysql username> <mysql password>
-  <database name>`.
-  * Prints the `id` of the new `State` after creation.
+    * all - Shows all objects the program has access to, or all objects of a given class
 
-* **12. Update a state**
-  * [12-model_state_update_id_2.py](./12-model_state_update_id_2.py): Python
-  script that uses SQLAlchemy to change the name of the `State` object with
-  `id = 2` in the database `hbtn_0e_6_usa` to "New Mexico".
-  * Usage: `./12-model_state_update_id_2.py <mysql username> <mysql password>
-  <database name>`.
+	* count - Return number of object instances by class
 
-* **13. Delete states**
-  * [13-model_state_delete_a.py](./13-model_state_delete_a.py): Python script
-  that uses SQLAlchemy to delete all `State` objects with a name containing the
-  letter `a` from the database `hbtn_0e_6_usa`.
-  * Usage: `./13-model_state_delete_a.py <mysql username> <mysql password>
-  <database name>`.
+    * show - Shows an object based on class and UUID
 
-* **14. Cities in state**
-  * [model_city.py](./model_city.py): Python module defining a class `City`
-  that inherits from SQLAlchemy `Base` and links to the MySQL table `cities`.
-    * Includes class attribute `state_id` that is a foreign key to
-    `states.id`.
-  * [14-model_city_fetch_by_state.py](./14-model_city_fetch_by_state.py):
-  Python script that uses SQLAlchemy to list all `City` objects in the database
-  `hbtn_0e_14_usa`.
-  * Usage: `./14-model_city_fetch_by_state.py <mysql username> <mysql password>
-  <database name>`.
-  * Results are sorted by ascending `cities.id`.
+	* destroy - Destroys an object based on class and UUID
 
-* **15. City relationship**
-  * [relationship_state.py](./relationship_state.py): Python module defining a
-  class `State` that inherits from SQLAlchemy `Base` and links to the MySQL table
-  `states`.
-    * Identical to the `State` class defined in [model_state.py](./model_state.py).
-    * Includes class attribute `classes` that represents a relationship with
-    the class `City`. If the `State` object is deleted, all linked `City` objects
-    are also deleted. `State` objects are backreferenced to `City` objects as
-    `state`.
-  * [relationship_city.py](./relationship_city.py): Python module defining a
-  class `City` that inherits from SQLAlchemy `Base` and links to the MySQL table
-  `cities`.
-    * Identical to the `City` class defined in [model_city.py](./model_city.py).
-  * [100-relationship_states_cities.py](./100-relationship_states_cities.py):
-  Python script that uses SQLAlchemy to add the `State` "California" with `City`
-  "San Francisco" to the database `hbtn_0e_100_usa`.
-  * Usage: `./100-relationship_states_cities.py <mysql username>
-  <mysql password> <database name>`.
-  * Uses the `cities` relationship for all `State` objects.
+    * update - Updates existing attributes an object based on class name and UUID
 
-* **16. List relationship**
-  * [101-relationship_states_cities_list.py](./101-relationship_states_cities_list.py):
-  Python script that uses SQLAlchemy to list all `State` and corresponding
-  `City` objects in the database `hbtn_0e_101_usa`.
-  * Usage: `./101-relationship_states_cities_list.py <mysql username>
-  <mysql password> <database name>`.
-  * Uses the `cities` relationship for all `State` objects.
-  * Results are sorted by ascending `states.id` and `cities.id`.
+<br>
+<br>
+<center> <h2>Examples</h2> </center>
+<h3>Primary Command Syntax</h3>
 
-* **17. List city**
-  * [102-relationship_cities_states_list.py](./102-relationship_cities_states_list.py):
-  Python script that uses SQLAlchemy to list all `City` objects from the database
-  `hbtn_0e_101_usa`.
-  * Usage: `./102-relationship_cities_states_list.py <mysql username>
-  <mysql password> <database name>`.
-  * Uses the `state` relationship to access the `State` objects linked to `City` objects.
-  * Results are sorted by ascending `cities.id`.
+###### Example 0: Create an object
+Usage: create <class_name>
+```
+(hbnb) create BaseModel
+```
+```
+(hbnb) create BaseModel
+3aa5babc-efb6-4041-bfe9-3cc9727588f8
+(hbnb)                   
+```
+###### Example 1: Show an object
+Usage: show <class_name> <_id>
+
+```
+(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
+[BaseModel] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96959), 
+'updated_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96971)}
+(hbnb)  
+```
+###### Example 2: Destroy an object
+Usage: destroy <class_name> <_id>
+```
+(hbnb) destroy BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
+(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
+** no instance found **
+(hbnb)   
+```
+###### Example 3: Update an object
+Usage: update <class_name> <_id>
+```
+(hbnb) update BaseModel b405fc64-9724-498f-b405-e4071c3d857f first_name "person"
+(hbnb) show BaseModel b405fc64-9724-498f-b405-e4071c3d857f
+[BaseModel] (b405fc64-9724-498f-b405-e4071c3d857f) {'id': 'b405fc64-9724-498f-b405-e4071c3d857f', 'created_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729889), 
+'updated_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729907), 'first_name': 'person'}
+(hbnb)
+```
+<h3>Alternative Syntax</h3>
+
+###### Example 0: Show all User objects
+Usage: <class_name>.all()
+```
+(hbnb) User.all()
+["[User] (99f45908-1d17-46d1-9dd2-b7571128115b) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92071), 'id': '99f45908-1d17-46d1-9dd2-b7571128115b', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92056)}", "[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
+```
+
+###### Example 1: Destroy a User
+Usage: <class_name>.destroy(<_id>)
+```
+(hbnb) User.destroy("99f45908-1d17-46d1-9dd2-b7571128115b")
+(hbnb)
+(hbnb) User.all()
+(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
+```
+###### Example 2: Update User (by attribute)
+Usage: <class_name>.update(<_id>, <attribute_name>, <attribute_value>)
+```
+(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", name "Todd the Toad")
+(hbnb)
+(hbnb) User.all()
+(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'name': 'Todd the Toad', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
+```
+###### Example 3: Update User (by dictionary)
+Usage: <class_name>.update(<_id>, <dictionary>)
+```
+(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", {'name': 'Fred the Frog', 'age': 9})
+(hbnb)
+(hbnb) User.all()
+(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
+```
+<br>
